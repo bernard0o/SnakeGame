@@ -41,21 +41,33 @@ function move(eixo, num){
 }
 
 function putFood(){
-    let randomNum = Math.round(Math.random() * 3);
-    let div = document.createElement("div");
-    div.id = "food";
+    let count = 0;
     xfood = Math.round(Math.random() * 20);
     yfood = Math.round(Math.random() * 20);
-    div.style.gridColumnStart = yfood;
-    div.style.gridRowStart = xfood;
-    if (randomNum == 1){
-        div.style.backgroundImage = "url(strawberry.png)";
-    } else if(randomNum == 2){
-        div.style.backgroundImage = "url(burguer.webp)";
+    snakeBody.forEach(element => {
+        if (element.x == xfood && element.y == yfood){
+            console.log("iguais")
+            count++
+        }
+    });
+    if (count == 0){
+        let randomNum = Math.round(Math.random() * 3);
+        let div = document.createElement("div");
+        div.id = "food";
+        div.style.gridColumnStart = yfood;
+        div.style.gridRowStart = xfood;
+        if (randomNum == 1){
+            div.style.backgroundImage = "url(strawberry.png)";
+        } else if(randomNum == 2){
+            div.style.backgroundImage = "url(burguer.webp)";
+        } else{
+            div.style.backgroundImage = "url(icecream.png)";
+        }
+        board.appendChild(div);
     } else{
-        div.style.backgroundImage = "url(icecream.png)";
+        putFood();
     }
-    board.appendChild(div);
+
 }
 
 function clearAllIntervals(){

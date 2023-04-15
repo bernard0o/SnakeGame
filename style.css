@@ -33,7 +33,7 @@ span, strong{
 span{
     text-align: center;
     position: absolute;
-    bottom: 50px;
+    top: 20px;
 }
 
 .snake{
