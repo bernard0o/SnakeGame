@@ -2,11 +2,13 @@ const board = document.getElementById("game-board");
 let snakeBody = [
     {x: 5, y: 5},
     {x: 5, y: 4},
+    {x: 5, y: 3},
+    {x: 5, y: 2},
 ]
 
 let points = 0;
 
-document.getElementById("points").textContent = " " + `${points}`;
+document.getElementById("points").textContent = `${points}`;
 document.getElementById("points2").textContent = `${points}`;
 
 let xfood = 0, yfood = 0;
@@ -33,19 +35,28 @@ function updateSnake(){
 }
 
 function move(eixo, num){    
-    snakeBody.pop();
     snakeBody.unshift({...snakeBody[0]});
     snakeBody[0][eixo] += num;
+    snakeBody.pop();
+    snakeOnSnake();
     updateSnake();
 }
 
 function putFood(){
+    let randomNum = Math.round(Math.random() * 3);
     let div = document.createElement("div");
     div.id = "food";
     xfood = Math.round(Math.random() * 20);
     yfood = Math.round(Math.random() * 20);
     div.style.gridColumnStart = yfood;
-    div.style.gridRowStart = xfood
+    div.style.gridRowStart = xfood;
+    if (randomNum == 1){
+        div.style.backgroundImage = "url(strawberry.png)";
+    } else if(randomNum == 2){
+        div.style.backgroundImage = "url(burguer.webp)";
+    } else{
+        div.style.backgroundImage = "url(icecream.png)";
+    }
     board.appendChild(div);
 }
 
@@ -55,6 +66,20 @@ function clearAllIntervals(){
         window.clearInterval(i);
     }
 }
+
+function snakeOnSnake(){
+    // If Snake is on Snake
+    for (let i2 = 0; i2 < snakeBody.length - 1; i2++){
+        for (let i = i2+1; i < snakeBody.length; i++){
+            if (snakeBody[i2].y == snakeBody[i].y && snakeBody[i2].x == snakeBody[i].x){
+                document.getElementById("game-over").style.display = "flex";
+                clearInterval(1);
+                clearAllIntervals;
+            }
+        }
+    }
+}
+
 
 function game(){
     let lastKey = "";
@@ -108,17 +133,28 @@ function game(){
             document.getElementById("food").remove();
             putFood();
             points++;
+            if (points == 5){
+                document.body.style.backgroundColor = "black";
+                board.style.backgroundColor = "darkslategray";
+                board.style.border = "1px solid white";
+                document.getElementById("points").style.color = "white";
+                document.getElementById("containerPoints").style.color = "white";
+            }
             document.getElementById("points").textContent = ` ${points}`;
             document.getElementById("points2").textContent = ` ${points}`;
-            snakeBody.push({...snakeBody[snakeBody.length - 1]})
+            snakeBody.push({...snakeBody[snakeBody.length - 1]});
         }
 
         // If Snake is on border
         if (snakeBody[0].x <= 0 || snakeBody[0].x > 20 || snakeBody[0].y <= 0 || snakeBody[0].y > 20){
             document.getElementById("game-over").style.display = "flex";
-        }
+            clearInterval(0);
+            clearAllIntervals();
+        }        
     }, 100);
 }
 
 
-start();
+window.onload = () => {
+    start();
+}

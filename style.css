@@ -41,7 +41,8 @@ span{
 }
 
 #food{
-    background-color: rgb(255, 68, 0);
+    background-image: url(strawberry.png);
+    background-size: contain;
     grid-row-start: 15;
     grid-column-start: 15;
 }
