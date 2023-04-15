@@ -2,8 +2,6 @@ const board = document.getElementById("game-board");
 let snakeBody = [
     {x: 5, y: 5},
     {x: 5, y: 4},
-    {x: 5, y: 3},
-    {x: 5, y: 2},
 ]
 
 let points = 0;
