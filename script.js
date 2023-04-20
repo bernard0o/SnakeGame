@@ -44,12 +44,11 @@ function putFood(){
     let count = 0;
     xfood = Math.round(Math.random() * 20);
     yfood = Math.round(Math.random() * 20);
-    snakeBody.forEach(element => {
-        if (element.x == xfood && element.y == yfood){
-            console.log("iguais")
-            count++
+    for(let i = 0; i < snakeBody.length; i++){
+        if (snakeBody[i].x == xfood && snakeBody[i].y == yfood){
+            count++;
         }
-    });
+    };
     if (count == 0){
         let randomNum = Math.round(Math.random() * 3);
         let div = document.createElement("div");
@@ -65,6 +64,7 @@ function putFood(){
         }
         board.appendChild(div);
     } else{
+        console.log("putfood")
         putFood();
     }
 
@@ -102,7 +102,7 @@ function game(){
                 setInterval(() => {
                     updateSnake();
                     move("y", -1);
-                }, 300);
+                }, 200);
                 lastKey = "ArrowLeft";
             }
         } else if(keyPressed.key == "ArrowRight"){
@@ -111,7 +111,7 @@ function game(){
                 setInterval(() => {
                     updateSnake();
                     move("y", 1);
-                }, 300);
+                }, 200);
                 lastKey = "ArrowRight";
             }
         } else if(keyPressed.key == "ArrowUp"){
@@ -120,7 +120,7 @@ function game(){
                 setInterval(() => {
                     updateSnake();
                     move("x", -1);
-                }, 300);
+                }, 200);
                 lastKey = "ArrowUp";
             }
         } else if(keyPressed.key == "ArrowDown"){
@@ -129,7 +129,7 @@ function game(){
                 setInterval(() => {
                     updateSnake();
                     move("x", 1);
-                }, 300);
+                }, 200);
                 lastKey = "ArrowDown";
             }
         }
