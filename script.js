@@ -38,7 +38,7 @@ function updateSnake(){
 }
 
 function move(eixo, num){    
-    //Removes the last snake piece and add a new one
+    //Removes the last snake's piece and add a new one
     snakeBody.unshift({...snakeBody[0]});
     snakeBody[0][eixo] += num;
     snakeBody.pop();
