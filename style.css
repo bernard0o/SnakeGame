@@ -39,6 +39,7 @@ span{
 
 .snake{
     background-color: rgb(109, 230, 109);
+    transition: all 200ms ease-in;
 }
 
 #food{
@@ -62,7 +63,7 @@ span{
 }
 
 a{
-    color: blue;
+    color: white;
     text-decoration: underline;
     cursor: pointer;
 }

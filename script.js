@@ -2,6 +2,10 @@ const board = document.getElementById("game-board");
 let snakeBody = [
     {x: 5, y: 5},
     {x: 5, y: 4},
+    {x: 5, y: 3},
+    {x: 5, y: 2},
+    {x: 5, y: 1},
+    {x: 5, y: 0},
 ]
 
 let points = 0;
@@ -9,7 +13,7 @@ let points = 0;
 document.getElementById("points").textContent = `${points}`;
 document.getElementById("points2").textContent = `${points}`;
 
-let xfood = 0, yfood = 0;
+let xfood = 5, yfood = 5;
 
 function start(){
     updateSnake();
@@ -18,6 +22,7 @@ function start(){
 }
 
 function updateSnake(){
+    //Remove all snake and creates a new one with new position.
     const snake = document.querySelectorAll(".snake");
     snake.forEach(item => {
         item.remove();
@@ -33,6 +38,7 @@ function updateSnake(){
 }
 
 function move(eixo, num){    
+    //Removes the last snake piece and add a new one
     snakeBody.unshift({...snakeBody[0]});
     snakeBody[0][eixo] += num;
     snakeBody.pop();
@@ -41,15 +47,15 @@ function move(eixo, num){
 }
 
 function putFood(){
-    let count = 0;
-    xfood = Math.round(Math.random() * 20);
-    yfood = Math.round(Math.random() * 20);
+    // If food spawns over the snake, it generates another x and y for food.
     for(let i = 0; i < snakeBody.length; i++){
-        if (snakeBody[i].x == xfood && snakeBody[i].y == yfood){
-            count++;
-        }
-    };
-    if (count == 0){
+        while (snakeBody[i].x == xfood && snakeBody[i].y == yfood){
+            xfood = Math.round(Math.random() * 20);
+            yfood = Math.round(Math.random() * 20);
+            }
+        };
+
+        // Creating food div and applying styles.
         let randomNum = Math.round(Math.random() * 3);
         let div = document.createElement("div");
         div.id = "food";
@@ -63,10 +69,6 @@ function putFood(){
             div.style.backgroundImage = "url(icecream.png)";
         }
         board.appendChild(div);
-    } else{
-        console.log("putfood")
-        putFood();
-    }
 
 }
 
@@ -100,8 +102,8 @@ function game(){
             if (lastKey != "a" && lastKey != "d"){
                 clearAllIntervals();
                 setInterval(() => {
-                    updateSnake();
                     move("y", -1);
+                    updateSnake();
                 }, 200);
                 lastKey = "a";
             }
@@ -109,8 +111,8 @@ function game(){
             if (lastKey != "d" && lastKey != "a"){
                 clearAllIntervals();
                 setInterval(() => {
-                    updateSnake();
                     move("y", 1);
+                    updateSnake();
                 }, 200);
                 lastKey = "d";
             }
@@ -118,8 +120,8 @@ function game(){
             if (lastKey != "w" && lastKey != "s"){
                 clearAllIntervals();
                 setInterval(() => {
-                    updateSnake();
                     move("x", -1);
+                    updateSnake();
                 }, 200);
                 lastKey = "w";
             }
@@ -127,8 +129,8 @@ function game(){
             if (lastKey != "w" && lastKey != "s"){
                 clearAllIntervals();
                 setInterval(() => {
-                    updateSnake();
                     move("x", 1);
+                    updateSnake();
                 }, 200);
                 lastKey = "s";
             }
@@ -139,6 +141,7 @@ function game(){
 
     setInterval(() => {
         // If Snake eats food
+        // Remove the food and add a new one
         if (snakeBody[0].x == xfood && snakeBody[0].y == yfood){
             document.getElementById("food").remove();
             putFood();
@@ -154,7 +157,7 @@ function game(){
             clearInterval(0);
             clearAllIntervals();
         }        
-    }, 100);
+    }, 50);
 }
 
 
