@@ -96,41 +96,41 @@ function game(){
     // Snake Movement
     document.addEventListener("keyup", (keyPressed) => {
         document.getElementById("hint").style.display = "none";
-        if (keyPressed.key == "ArrowLeft"){
-            if (lastKey != "ArrowLeft" && lastKey != "ArrowRight"){
+        if (keyPressed.key == "a"){
+            if (lastKey != "a" && lastKey != "d"){
                 clearAllIntervals();
                 setInterval(() => {
                     updateSnake();
                     move("y", -1);
                 }, 200);
-                lastKey = "ArrowLeft";
+                lastKey = "a";
             }
-        } else if(keyPressed.key == "ArrowRight"){
-            if (lastKey != "ArrowRight" && lastKey != "ArrowLeft"){
+        } else if(keyPressed.key == "d"){
+            if (lastKey != "d" && lastKey != "a"){
                 clearAllIntervals();
                 setInterval(() => {
                     updateSnake();
                     move("y", 1);
                 }, 200);
-                lastKey = "ArrowRight";
+                lastKey = "d";
             }
-        } else if(keyPressed.key == "ArrowUp"){
-            if (lastKey != "ArrowUp" && lastKey != "ArrowDown"){
+        } else if(keyPressed.key == "w"){
+            if (lastKey != "w" && lastKey != "s"){
                 clearAllIntervals();
                 setInterval(() => {
                     updateSnake();
                     move("x", -1);
                 }, 200);
-                lastKey = "ArrowUp";
+                lastKey = "w";
             }
-        } else if(keyPressed.key == "ArrowDown"){
-            if (lastKey != "ArrowUp" && lastKey != "ArrowDown"){
+        } else if(keyPressed.key == "s"){
+            if (lastKey != "w" && lastKey != "s"){
                 clearAllIntervals();
                 setInterval(() => {
                     updateSnake();
                     move("x", 1);
                 }, 200);
-                lastKey = "ArrowDown";
+                lastKey = "s";
             }
         }
     })
@@ -138,18 +138,11 @@ function game(){
     // Detecting
 
     setInterval(() => {
-        // If Snake is on food
+        // If Snake eats food
         if (snakeBody[0].x == xfood && snakeBody[0].y == yfood){
             document.getElementById("food").remove();
             putFood();
             points++;
-            if (points == 5){
-                document.body.style.backgroundColor = "black";
-                board.style.backgroundColor = "darkslategray";
-                board.style.border = "1px solid white";
-                document.getElementById("points").style.color = "white";
-                document.getElementById("containerPoints").style.color = "white";
-            }
             document.getElementById("points").textContent = ` ${points}`;
             document.getElementById("points2").textContent = ` ${points}`;
             snakeBody.push({...snakeBody[snakeBody.length - 1]});
